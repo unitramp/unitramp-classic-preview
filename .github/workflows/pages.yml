@@ -26,8 +26,10 @@ jobs:
       - name: Extract and verify preview
         run: |
           unzip -q unitramp-classic-preview.zip -d _site
+          base64 --decode unitramp-pages-65.tar.xz.b64 > "$RUNNER_TEMP/unitramp-pages.tar.xz"
+          tar -xJf "$RUNNER_TEMP/unitramp-pages.tar.xz" -C _site
           test -s _site/index.html
-          test "$(find _site -type f -name index.html | wc -l)" -eq 22
+          test "$(find _site -type f -name index.html | wc -l)" -eq 65
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
